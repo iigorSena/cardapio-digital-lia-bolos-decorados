@@ -1,0 +1,195 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #73313B;
+}
+
+header {
+  background-color: #F65DBA;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.logo-nome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+h1 {
+  margin: 10px 0;
+  color: #fff;
+  font-size: 15pt;
+  margin-inline: 5px;
+}
+
+.menu {
+  margin-top: 10px;
+}
+
+.menu button {
+  background-color: #E40DB0;
+  color: white;
+  width: 40%;
+  border: none;
+  padding-block: 15px;
+  margin: 0 0px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.menu button:hover {
+  background-color: #73313B;
+}
+
+.cardapio {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  width: 400px;
+  background-color: #FCE4EC;
+  border: 1px solid #F65DBA;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.card:hover{
+    transform: scale(1.02);
+    border: 1px solid #E40DB0;
+    box-shadow: 0px 0px 15px #F65DBA;
+}
+
+.card img {
+  width: 150px;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-info {
+  padding: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.descricao {
+  font-size: 20px;
+  font-weight: bold;
+  color: #73313B;
+}
+.card-info hr{
+  width: 100%;
+  border: 1px solid #73313B;
+}
+.preco, .massa {
+  font-weight: bold;
+  color: #E40DB0;
+}
+
+.rodape {
+  background-color: #73313B;
+  color: white;
+  padding: 20px;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.contato-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contato-item img {
+  width: 24px;
+  height: 24px;
+}
+
+body {
+  padding-bottom: 160px; /* espaço suficiente para não ocultar o conteúdo atrás do rodapé */
+}
+
+.whatsapp-fixo{
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  z-index: 1000;
+  height: 80px;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5));;
+  cursor: pointer;
+}
+.whatsapp-fixo:hover{
+  transform: scale(1.04);
+}
+
+
+@media (max-width: 800px) {
+
+header {
+  padding-top: 10px;
+}
+
+.logo {
+  width: 70px;
+}
+
+.menu {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.menu button {
+  background-color: #E40DB0;
+  color: white;
+  width: 50%;
+  border-radius: 2px;
+  font-size: 12pt;
+}
+.whatsapp-fixo{
+  position: fixed;
+  bottom: 30px;
+  right: 10px;
+  z-index: 1000;
+  height: 70px;
+}
+
+.rodape {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+body {
+  padding-bottom: 0px; /* espaço suficiente para não ocultar o conteúdo atrás do rodapé */
+}
+
+}
