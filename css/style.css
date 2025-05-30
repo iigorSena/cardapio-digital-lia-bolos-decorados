@@ -57,6 +57,17 @@ h1 {
   background-color: #73313B;
 }
 
+.area-aviso {
+  text-align: center;
+  width: 100%;
+}
+
+.aviso-pedido {
+  font-weight: bold;
+  color: #E40DB0;
+  font-size: 16px;
+}
+
 .cardapio {
   padding: 20px;
   display: flex;
@@ -111,7 +122,6 @@ h1 {
 .rodape {
   background-color: #73313B;
   color: white;
-  padding: 20px;
   text-align: left;
   display: flex;
   flex-wrap: wrap;
@@ -179,13 +189,13 @@ header {
 .whatsapp-fixo{
   position: fixed;
   bottom: 30px;
-  right: 30px;
+  right: 10px;
   z-index: 1000;
   height: 70px;
 }
 
 .rodape {
-  padding: 20px;
+  padding-top: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
