@@ -152,38 +152,3 @@ const cardapioData = {
     }
   ],
 };
-
-function mostrarCategoria(categoria) {
-  const cardapio = document.getElementById('cardapio');
-  cardapio.innerHTML = '';
-
-  cardapioData[categoria].forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-
-    let conteudo = `
-      <img src="${item.imagem}" alt="${item.descricao}">
-      <div class="card-info">
-        <div class="descricao">${item.descricao}</div>
-        <hr>
-    `;
-
-    if (categoria === 'doces') {
-      conteudo += `<div class="preco">${item.preco}</div>`;
-    } else {
-      conteudo += `
-        <div class="massa">${item.massa}</div>
-        <div class="preco">${item.preco_kg}</div>
-      `;
-    }
-
-    conteudo += `</div>`;
-    card.innerHTML = conteudo;
-
-    cardapio.appendChild(card);
-  });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  mostrarCategoria('bolo-decorado');
-});
