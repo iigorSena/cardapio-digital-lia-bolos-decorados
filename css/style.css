@@ -9,6 +9,7 @@ header {
   background-color: #F65DBA;
   padding-top: 20px;
   text-align: center;
+  width: 100%;
 }
 
 .logo-nome {
@@ -31,21 +32,28 @@ h1 {
 
 .menu {
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .menu button {
   background-color: #E40DB0;
   color: white;
-  width: 40%;
+  flex: 1;
   border: none;
   padding-block: 15px;
   margin: 0 0px;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
+  padding-inline: 0px;
+  font-size: 14pt;
 }
 
 .menu button:hover {
+  background-color: #73313B;
+}
+.botao-categoria.ativo {
   background-color: #73313B;
 }
 
@@ -53,6 +61,7 @@ h1 {
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
@@ -107,7 +116,7 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -118,7 +127,6 @@ h1 {
 .contato-item {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 .contato-item img {
@@ -127,7 +135,7 @@ h1 {
 }
 
 body {
-  padding-bottom: 160px; /* espaço suficiente para não ocultar o conteúdo atrás do rodapé */
+  padding-bottom: 100px; /* espaço suficiente para não ocultar o conteúdo atrás do rodapé */
 }
 
 .whatsapp-fixo{
@@ -171,7 +179,7 @@ header {
 .whatsapp-fixo{
   position: fixed;
   bottom: 30px;
-  right: 10px;
+  right: 20px;
   z-index: 1000;
   height: 70px;
 }
