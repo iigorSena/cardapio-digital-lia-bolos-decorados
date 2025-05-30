@@ -179,7 +179,7 @@ header {
 .whatsapp-fixo{
   position: fixed;
   bottom: 30px;
-  right: 20px;
+  right: 30px;
   z-index: 1000;
   height: 70px;
 }
