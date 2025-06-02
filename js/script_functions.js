@@ -23,7 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
 // EXIBIÇÃO DAS CATEGORIAS =========================================================================
+
+const itensSelecionados = new Map(); // Armazena os itens selecionados com dados completos
+
 function mostrarCategoria(categoria) {
   const cardapio = document.getElementById('cardapio');
   cardapio.innerHTML = ''; // Limpa o conteúdo atual
@@ -46,11 +50,13 @@ function mostrarCategoria(categoria) {
     const card = document.createElement('div');
     card.className = 'card';
 
+    const itemId = item.descricao; // Usamos a descrição como identificador
+
     let conteudo = `
-    <img src="${item.imagem}" alt="${item.descricao}">
-    <div class="card-info">
-    <div class="descricao">${item.descricao}</div>
-    <input type="checkbox" class="card-checkbox">
+      <img src="${item.imagem}" alt="${item.descricao}">
+      <div class="card-info">
+      <div class="descricao">${item.descricao}</div>
+      <input type="checkbox" class="card-checkbox" data-id="${itemId}" ${itensSelecionados.has(itemId) ? 'checked' : ''}>
     `;
 
     if (categoria === 'doces') {
@@ -70,15 +76,42 @@ function mostrarCategoria(categoria) {
     cardapio.appendChild(card);
   });
 
-   // Adiciona listeners para atualizar o contador do carrinho
+  // Eventos para atualizar os itens selecionados
   const checkboxes = document.querySelectorAll('.card-checkbox');
   checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', atualizarContadorCarrinho);
+    checkbox.addEventListener('change', (e) => {
+      const id = e.target.dataset.id;
+      const item = cardapioData[categoria].find(i => i.descricao === id);
+
+      if (e.target.checked) {
+        itensSelecionados.set(id, item);
+      } else {
+        itensSelecionados.delete(id);
+      }
+
+      atualizarContadorCarrinho();
+    });
   });
+
+  // Atualiza o contador no carrinho
+  atualizarContadorCarrinho();
 }
 
-// Atualizar contador do carrinho
 function atualizarContadorCarrinho() {
-  const selecionados = document.querySelectorAll('.card-checkbox:checked').length;
-  document.getElementById('notificacao-carrinho').textContent = selecionados;
+  const contador = document.getElementById('notificacao-carrinho');
+  const botaoCarrinho = document.getElementById('btn-carrinho');
+
+  const totalSelecionados = itensSelecionados.size;
+  contador.textContent = totalSelecionados;
+
+  // Ativa ou desativa o botão com base no número de itens
+  botaoCarrinho.disabled = totalSelecionados === 0;
 }
+
+
+// Clique no botão do carrinho: salva os itens e redireciona
+document.getElementById('btn-carrinho').addEventListener('click', () => {
+  // Salva no localStorage os itens selecionados como array
+  localStorage.setItem('itensCheckout', JSON.stringify(Array.from(itensSelecionados.values())));
+  window.location.href = 'checkout.html';
+});
