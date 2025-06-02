@@ -38,8 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Converter para reais com duas casas decimais
   const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
 
-  const totalElement = document.createElement('div');
-  totalElement.className = 'total-checkout';
-  totalElement.innerHTML = `<strong>Total: R$ ${totalReais}</strong>`;
+  const totalFixo = document.getElementById('valor-total-fixo');
+  totalFixo.innerHTML = `<strong>Valor total: R$ ${totalReais}</strong>`;
   container.appendChild(totalElement);
 });

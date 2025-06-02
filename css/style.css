@@ -130,8 +130,8 @@ h1 {
 
 .rodape {
   background-color: #73313B;
+  padding-block: 8px;
   color: white;
-  text-align: left;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -159,7 +159,7 @@ body {
 
 #btn-carrinho{
   position: fixed;
-  bottom: 30px;
+  bottom: 40px;
   right: 20px;
   z-index: 1000;
   height: 75px;
@@ -220,21 +220,17 @@ header {
   border-radius: 2px;
   font-size: 12pt;
 }
-.whatsapp-fixo{
-  position: fixed;
-  bottom: 30px;
+#btn-carrinho{
   right: 10px;
-  z-index: 1000;
-  height: 70px;
 }
 
 .rodape {
   padding-top: 10px;
+  padding-inline: 10px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
   position: relative;
+  gap: 10px;
   bottom: 0;
   width: 100%;
   z-index: 10;
