@@ -1,3 +1,4 @@
+// CONTROLE DE EXIBIÇÃO DOS BOTÕES DO MENU =======================================================
 function selecionarCategoria(botao) {
   const categoria = botao.dataset.categoria;
 
@@ -46,9 +47,10 @@ function mostrarCategoria(categoria) {
     card.className = 'card';
 
     let conteudo = `
-      <img src="${item.imagem}" alt="${item.descricao}">
-      <div class="card-info">
-        <div class="descricao">${item.descricao}</div>
+    <img src="${item.imagem}" alt="${item.descricao}">
+    <div class="card-info">
+    <div class="descricao">${item.descricao}</div>
+    <input type="checkbox" class="card-checkbox">
     `;
 
     if (categoria === 'doces') {
@@ -67,4 +69,16 @@ function mostrarCategoria(categoria) {
 
     cardapio.appendChild(card);
   });
+
+   // Adiciona listeners para atualizar o contador do carrinho
+  const checkboxes = document.querySelectorAll('.card-checkbox');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', atualizarContadorCarrinho);
+  });
+}
+
+// Atualizar contador do carrinho
+function atualizarContadorCarrinho() {
+  const selecionados = document.querySelectorAll('.card-checkbox:checked').length;
+  document.getElementById('notificacao-carrinho').textContent = selecionados;
 }
