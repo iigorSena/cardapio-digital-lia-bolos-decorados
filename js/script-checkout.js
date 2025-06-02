@@ -1,5 +1,3 @@
-// checkout.js
-
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('checkout');
   const itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
@@ -9,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  let total = 0;
+  let totalCentavos = 0;
 
   itens.forEach(item => {
     const card = document.createElement('div');
@@ -31,16 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
     card.innerHTML = conteudo;
     container.appendChild(card);
 
-    // Soma o valor
+    // Evita erro de arredondamento usando toFixed(0)
     if (typeof item.valor === 'number') {
-      total += item.valor;
+      totalCentavos += parseInt((item.valor * 100).toFixed(0));
     }
   });
 
-  // Criar e exibir o total
+  // Converter para reais com duas casas decimais
+  const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
+
   const totalElement = document.createElement('div');
   totalElement.className = 'total-checkout';
-  totalElement.innerHTML = `<strong>Total: R$ ${total.toFixed(2).replace('.', ',')}</strong>`;
+  totalElement.innerHTML = `<strong>Total: R$ ${totalReais}</strong>`;
   container.appendChild(totalElement);
-
 });

@@ -76,13 +76,13 @@ const cardapioData = {
       imagem: 'img/img-doces-1.jpg',
       descricao: 'Porta retrato de chocolate',
       preco: 'R$ 8,50',
-      valor: 8.50
+      valor: 8.5
     },
     {
       imagem: 'img/img-doces-2.jpg',
       descricao: 'Maçãs 2D',
       preco: 'R$ 8,00',
-      valor: 8.50
+      valor: 8
     },
     {
       imagem: 'img/img-doces-3.jpg',
