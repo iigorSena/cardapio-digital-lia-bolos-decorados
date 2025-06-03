@@ -104,17 +104,24 @@ inputs.forEach(input => {
   const id = input.dataset.id;
   const item = cardapioData[categoria].find(i => i.descricao === id);
 
-  // Atualiza total enquanto digita (sem forçar valor)
-  input.addEventListener('input', (e) => {
-    let quantidade = parseFloat(e.target.value);
-    if (isNaN(quantidade)) return; // evita NaN ao apagar
+// Atualiza total enquanto digita (sem forçar valor)
+input.addEventListener('input', (e) => {
+  let quantidade = parseFloat(e.target.value);
 
-    const total = item.valor * quantidade;
-    const pTotal = document.getElementById(`valor-${id}`);
-    if (pTotal) {
-      pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    }
-  });
+  // Permite apagar
+  if (isNaN(quantidade)) return;
+
+  // Salva no cardapioData
+  item.quant = quantidade;
+
+  // Atualiza valor total
+  const total = item.valor * quantidade;
+  const pTotal = document.getElementById(`valor-${id}`);
+  if (pTotal) {
+    pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+  }
+});
+
 
   // Valida o valor mínimo ao sair do campo
   input.addEventListener('blur', (e) => {
@@ -123,17 +130,18 @@ inputs.forEach(input => {
     if (categoria === 'bolo-decorado') {
       if (isNaN(quantidade) || quantidade < 1.5) {
         quantidade = 1.5;
-        e.target.value = quantidade;
       }
     } else {
       if (isNaN(quantidade) || quantidade < 1) {
         quantidade = 1;
-        e.target.value = quantidade;
       } else {
-        quantidade = Math.floor(quantidade); // garante inteiro
-        e.target.value = quantidade;
+        quantidade = Math.floor(quantidade);
       }
     }
+
+    // Atualiza valor e salva
+    item.quant = quantidade;
+    e.target.value = quantidade;
 
     const total = item.valor * quantidade;
     const pTotal = document.getElementById(`valor-${id}`);
@@ -141,6 +149,7 @@ inputs.forEach(input => {
       pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
     }
   });
+
 });
 
 
