@@ -77,11 +77,13 @@ function mostrarCategoria(categoria) { // Exibe as categorias
     } else {
       conteudo += `
         <div class="massa">${item.massa}</div>
-        <hr>
         <div class="preco">${item.preco_kg}</div>
+        <hr>
         <div id="area-qtd">
         <label>Qtd:
         <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
+        </div>
+        <div id="area-total-item">
           <label>Total:</label>
           <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
         </div>`;

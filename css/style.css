@@ -100,7 +100,6 @@ h1 {
 }
 
 .card-info {
-  height: 100%;
   padding-inline: 10px;
   flex: 1;
   display: flex;
@@ -134,12 +133,12 @@ h1 {
   flex-wrap: wrap;
   font-weight: bold;
   color: #73313B;
-  margin-top: 15px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
 #area-qtd input{
   width: 30px;
+  color: #E40DB0;
   font-size: 12pt;
   border: 1px solid #E40DB0;
   text-align: center;
@@ -148,6 +147,18 @@ h1 {
 }
 .quantidade-input:focus{
   outline: 1.5px solid #E40DB0;
+}
+
+#area-total-item{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  font-weight: bold;
+  color: #73313B;
+  margin-block: 5px;
+}
+.valor-total-item{
+  margin: 0px;
 }
 
 .rodape {
