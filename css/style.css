@@ -3,6 +3,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #fff;
   color: #73313B;
+  padding-bottom: 100px;
 }
 
 header {
@@ -153,14 +154,10 @@ h1 {
   height: 24px;
 }
 
-body {
-  padding-bottom: 100px; /* espaço suficiente para não ocultar o conteúdo atrás do rodapé */
-}
-
 #btn-carrinho{
   position: fixed;
   bottom: 40px;
-  right: 20px;
+  right: 30px;
   z-index: 1000;
   height: 75px;
   width: 75px;
