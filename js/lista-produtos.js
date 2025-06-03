@@ -76,109 +76,115 @@ const cardapioData = {
     {
       imagem: 'img/img-doces-1.jpg',
       descricao: 'Porta retrato de chocolate',
-      preco: 'R$ 8,50',
+      preco: 'R$ 8,50 und',
       valor: 8.5
     },
     {
       imagem: 'img/img-doces-2.jpg',
       descricao: 'Maçãs 2D',
-      preco: 'R$ 8,00',
+      preco: 'R$ 8,00 und',
       valor: 8
     },
     {
       imagem: 'img/img-doces-3.jpg',
       descricao: 'Pirulito',
-      preco: 'R$ 8,50',
+      preco: 'R$ 8,50 und',
       valor: 8.50
     },
     {
       imagem: 'img/img-doces-4.jpg',
       descricao: 'Pirulito 3D',
-      preco: 'R$ 10,00',
+      preco: 'R$ 10,00 und',
       valor: 10
     },
     {
       imagem: 'img/img-doces-5.jpg',
       descricao: 'Cupcake 2D (Personalizado/Com Saiote)',
-      preco: 'R$ 8,50',
+      preco: 'R$ 8,50 und',
       valor: 8.50
     },
     {
       imagem: 'img/img-doces-5.jpg',
       descricao: 'Cupcake 2D (Personalizado/Com Saiote) com recheio',
-      preco: 'R$ 10,00',
+      preco: 'R$ 10,00  und',
       valor: 10
     },
     {
       imagem: 'img/img-doces-6.jpg',
       descricao: 'Cupcake chantilly',
-      preco: 'R$ 4,50 / R$ 6,00 recheado',
+      preco: 'R$ 4,50 und',
       valor: 4.50
+    },
+    {
+      imagem: 'img/img-doces-6.jpg',
+      descricao: 'Cupcake chantilly',
+      preco: 'R$ 6,00 und',
+      valor: 6
     },
     {
       imagem: 'img/img-doces-7.jpg',
       descricao: 'Cupcake 3D',
-      preco: 'R$ 12,00',
+      preco: 'R$ 12,00 und',
       valor: 12
     },
     {
       imagem: 'img/img-doces-8.jpg',
       descricao: 'Picolé 2D',
-      preco: 'R$ 9,50',
+      preco: 'R$ 9,50 und',
       valor: 9.50
     },
     {
       imagem: 'img/img-doces-9.jpg',
       descricao: 'Picolé 3D',
-      preco: 'R$ 16,00',
+      preco: 'R$ 16,00 und',
       valor: 16
     },
     {
       imagem: 'img/img-doces-10.jpg',
       descricao: 'Trufa 2D',
-      preco: 'R$ 9,00',
+      preco: 'R$ 9,00 und',
       valor: 9
     },
     {
       imagem: 'img/img-doces-11.jpg',
       descricao: 'Trufa Personagem',
-      preco: 'R$ 10,00',
+      preco: 'R$ 10,00 und',
       valor: 10
     },
     {
       imagem: 'img/img-doces-12.jpg',
       descricao: 'Trufa 3D com personagem',
-      preco: 'R$ 15,00',
+      preco: 'R$ 15,00 und',
       valor: 15
     },
     {
       imagem: 'img/img-doces-13.jpg',
       descricao: 'Trufa 3D dupla',
-      preco: 'R$ 18,00',
+      preco: 'R$ 18,00 und',
       valor: 18
     },
     {
       imagem: 'img/img-doces-14.jpg',
       descricao: 'Bolo no Palito 2D',
-      preco: 'R$ 13,00',
+      preco: 'R$ 13,00 und',
       valor: 13
     },
     {
       imagem: 'img/img-doces-15.jpg',
       descricao: 'Cone com personagem',
-      preco: 'R$ 12,00',
+      preco: 'R$ 12,00 und',
       valor: 12
     },
     {
       imagem: 'img/img-doces-16.jpg',
       descricao: 'Bolo 3D (Casinha / Poça de lama / Cama / Personagens sentados)',
-      preco: 'R$ 20,00',
+      preco: 'R$ 20,00 und',
       valor: 20
     },
     {
       imagem: 'img/img-doces-17.jpg',
       descricao: 'Doces modelado de leite ninho',
-      preco: 'R$ 7,00 (unidade)',
+      preco: 'R$ 7,00 und',
       valor: 7
     },
     {

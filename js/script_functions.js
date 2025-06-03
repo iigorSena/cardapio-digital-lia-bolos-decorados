@@ -65,7 +65,7 @@ function mostrarCategoria(categoria) {
         <div class="preco">${item.preco}</div>
         <div id="area-qtd">
         <label>Qtd:
-        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 1}" min="1">
+        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
         </div>`;
     } else {
       conteudo += `
@@ -74,7 +74,7 @@ function mostrarCategoria(categoria) {
         <div class="preco">${item.preco_kg}</div>
         <div id="area-qtd">
         <label>Qtd:
-        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 1}" min="1">
+        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
         </div>`;
     }
 
