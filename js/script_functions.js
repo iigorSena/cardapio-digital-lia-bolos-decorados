@@ -45,101 +45,106 @@ function mostrarCategoria(categoria) { // Exibe as categorias
     cardapio.appendChild(areaAviso); // Insere a área do aviso antes dos cards
   }
 
-  // Renderiza os cards da categoria selecionada
-  cardapioData[categoria].forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
+// Renderiza os cards da categoria selecionada
+cardapioData[categoria].forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'card';
 
-    const itemId = item.descricao;
-    const precoUnitario = item.valor;
-    const quantidadeInicial = item.quant || 1;
-    const valorTotalInicial = categoria === 'bolo-decorado'
-      ? precoUnitario * 1.5 * quantidadeInicial
-      : precoUnitario * quantidadeInicial;
+  const itemId = item.descricao;
+  const precoUnitario = item.valor;
+  const quantidadeInicial = item.quant || 1;
 
-    let conteudo = `
-      <img src="${item.imagem}" alt="${item.descricao}">
-      <div class="card-info">
-      <div class="descricao">${item.descricao}</div>
-      <input type="checkbox" class="card-checkbox" data-id="${itemId}" ${itensSelecionados.has(itemId) ? 'checked' : ''}>
-    `;
+  const valorTotalInicial = categoria === 'bolo-decorado'
+    ? precoUnitario * quantidadeInicial
+    : precoUnitario * quantidadeInicial;
 
-    if (categoria === 'doces') {
-      conteudo += `
+  let conteudo = `
+    <img src="${item.imagem}" alt="${item.descricao}">
+    <div class="card-info">
+    <div class="descricao">${item.descricao}</div>
+    <input type="checkbox" class="card-checkbox" data-id="${itemId}" ${itensSelecionados.has(itemId) ? 'checked' : ''}>
+  `;
+
+  if (categoria === 'doces') {
+    conteudo += `
       <div class="preco">${item.preco}</div>
       <hr>
-        <div id="area-qtd">
-          <label>Qtd:
-          <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
-          </div>
-          <div id="area-total-item">
-            <label>Total:</label>
-            <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
-          </div>`;
-    } else {
-      conteudo += `
-        <div class="massa">${item.massa}</div>
-        <hr>
-        <div class="preco">${item.preco_kg}</div>
-        <div id="area-qtd">
+      <div id="area-qtd">
         <label>Qtd:
-        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
-        </div>
-        <div id="area-total-item">
-          <label>Total:</label>
-          <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
-        </div>`;
-    }
+        <input type="number" class="quantidade-input" data-id="${itemId}" value="${quantidadeInicial}" min="1" step="1">
+      </div>
+      <div id="area-total-item">
+        <label>Total:</label>
+        <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
+      </div>`;
+  } else {
+    conteudo += `
+      <div class="massa">${item.massa}</div>
+      <div class="preco">${item.preco_kg}</div>
+      <hr>
+      <div id="area-qtd">
+        <label>Qtd:
+        <input type="number" class="quantidade-input" data-id="${itemId}" value="${quantidadeInicial}" min="1.5" step="0.1">
+        <label>Kg</label>
+      </div>
+      <div id="area-total-item">
+        <label>Total:</label>
+        <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
+      </div>`;
+  }
 
-    conteudo += `</div>`;
-    card.innerHTML = conteudo;
-
-    cardapio.appendChild(card);
-  });
+  conteudo += `</div>`;
+  card.innerHTML = conteudo;
+  cardapio.appendChild(card);
+});
 
 // Atualiza total por item em tempo real
 const inputs = document.querySelectorAll('.quantidade-input');
-  inputs.forEach(input => {
-    input.addEventListener('input', (e) => {
-      const id = e.target.dataset.id;
-      const item = cardapioData[categoria].find(i => i.descricao === id);
-      const quantidade = parseInt(e.target.value) || 1;
+inputs.forEach(input => {
+  input.addEventListener('input', (e) => {
+    const id = e.target.dataset.id;
+    const item = cardapioData[categoria].find(i => i.descricao === id);
+    let quantidade = parseFloat(e.target.value);
 
-      let total = 0;
-      if (categoria === 'bolo-decorado') {
-        total = item.valor * 1.5 * quantidade;
-      } else {
-        total = item.valor * quantidade;
+    if (categoria === 'bolo-decorado') {
+      if (quantidade < 1.5) {
+        quantidade = 1.5;
+        e.target.value = 1.5;
       }
+    } else {
+      quantidade = parseInt(quantidade) || 1;
+      if (quantidade < 1) {
+        quantidade = 1;
+        e.target.value = 1;
+      }
+    }
 
-      const pTotal = document.getElementById(`valor-${id}`);
-      if (pTotal) {
-        pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-      }
-    });
+    const total = item.valor * quantidade;
+    const pTotal = document.getElementById(`valor-${id}`);
+    if (pTotal) {
+      pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
   });
+});
 
 // Eventos para atualizar os itens selecionados
 const checkboxes = document.querySelectorAll('.card-checkbox');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', (e) => {
-      const id = e.target.dataset.id;
-      const item = cardapioData[categoria].find(i => i.descricao === id);
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', (e) => {
+    const id = e.target.dataset.id;
+    const item = cardapioData[categoria].find(i => i.descricao === id);
 
-      if (e.target.checked) {
-        itensSelecionados.set(id, item);
-      } else {
-        itensSelecionados.delete(id);
-      }
+    if (e.target.checked) {
+      itensSelecionados.set(id, item);
+    } else {
+      itensSelecionados.delete(id);
+    }
 
-      atualizarContadorCarrinho();
-    });
+    atualizarContadorCarrinho();
   });
+});
 
-  // Atualiza o contador no carrinho
-  atualizarContadorCarrinho();
-}
-
+// Atualiza o contador no carrinho
 function atualizarContadorCarrinho() {
   const contador = document.getElementById('notificacao-carrinho');
   const botaoCarrinho = document.getElementById('btn-carrinho');
@@ -147,30 +152,22 @@ function atualizarContadorCarrinho() {
   const totalSelecionados = itensSelecionados.size;
   contador.textContent = totalSelecionados;
 
-  // Ativa ou desativa o botão com base no número de itens
   botaoCarrinho.disabled = totalSelecionados === 0;
 }
 
-
-// Clique no botão do carrinho: salva os itens e redireciona
+// Botão do carrinho: salva itens e redireciona
 document.getElementById('btn-carrinho').addEventListener('click', () => {
   const itensParaCheckout = [];
 
   itensSelecionados.forEach((itemSelecionado, id) => {
-    // Captura o input de quantidade
     const inputQtd = document.querySelector(`.quantidade-input[data-id="${id}"]`);
-    const quantidade = parseInt(inputQtd?.value) || 1;
+    let quantidade = parseFloat(inputQtd?.value) || 1;
 
-    // Clona o item original para não alterar o objeto base
+    if (itemSelecionado.massa && quantidade < 1.5) quantidade = 1.5;
+
     const itemCopia = { ...itemSelecionado };
     itemCopia.quant = quantidade;
-
-    // Se for bolo, multiplica por 1.5kg por unidade
-    if (itemCopia.massa) {
-      itemCopia.valorTotal = itemCopia.valor * 1.5 * quantidade;
-    } else {
-      itemCopia.valorTotal = itemCopia.valor * quantidade;
-    }
+    itemCopia.valorTotal = itemSelecionado.valor * quantidade;
 
     itensParaCheckout.push(itemCopia);
   });
@@ -178,3 +175,4 @@ document.getElementById('btn-carrinho').addEventListener('click', () => {
   localStorage.setItem('itensCheckout', JSON.stringify(itensParaCheckout));
   window.location.href = 'checkout.html';
 });
+}

@@ -1,83 +1,83 @@
 const cardapioData = {
   'bolo-decorado': [
     {
-      imagem: 'img/img-bolo-simples-1.jpg',
+      imagem: 'img/pasta-americana.jpeg',
       descricao: 'Pasta americana',
       massa: 'Massa de Margarina',
       preco_kg: 'R$ 110,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 110
     },
     {
-      imagem: 'img/img-bolo-decorado-2.jpg',
+      imagem: 'img/Chantilly.jpeg',
       descricao: 'Chantilly',
       massa: 'Massa de Margarina',
       preco_kg: 'R$ 95,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 95
     },
     {
-      imagem: 'img/img-bolo-decorado-3.jpg',
+      imagem: 'img/Naked-cake.jpeg',
       descricao: 'Naked cake',
       massa: 'Massa de Margarina',
       preco_kg: 'R$ 90,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 90
     },
     {
-      imagem: 'img/img-bolo-decorado-3.jpg',
+      imagem: 'img/Naked-cake-frutas.jpg',
       descricao: 'Naked cake com frutas',
       massa: 'Massa de Margarina',
       preco_kg: 'R$ 95,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 95
     },
     {
-      imagem: 'img/img-bolo-decorado-4.jpg',
+      imagem: 'img/Scrapcake.jpeg',
       descricao: 'Scrapcake',
       massa: 'Massa de Margarina',
       preco_kg: 'R$ 95,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 95
     },
     {
-      imagem: 'img/img-bolo-decorado-5.jpg',
+      imagem: 'img/pasta-americana-man.jpg',
       descricao: 'Pasta americana',
       massa: 'Massa de Manteiga',
       preco_kg: 'R$ 125,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 125
     },
     {
-      imagem: 'img/img-bolo-decorado-6.jpg',
+      imagem: 'img/Chantilly-man.jpeg',
       descricao: 'Chantilly',
       massa: 'Massa de Manteiga',
       preco_kg: 'R$ 105,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 105
     },
     {
-      imagem: 'img/img-bolo-decorado-6.jpg',
+      imagem: 'img/Naked-cake-man.jpeg',
       descricao: 'Naked Cake',
       massa: 'Massa de Manteiga',
       preco_kg: 'R$ 100,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 100
     },
     {
-      imagem: 'img/img-bolo-decorado-6.jpg',
+      imagem: 'img/Naked-cake-man.jpeg',
       descricao: 'Naked Cake com frutas',
       massa: 'Massa de Manteiga',
       preco_kg: 'R$ 105,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 105
     },
     {
-      imagem: 'img/img-bolo-decorado-6.jpg',
+      imagem: 'img/Scrapcake-man.jpeg',
       descricao: 'Scrapcake ',
       massa: 'Massa de Manteiga',
       preco_kg: 'R$ 105,00 kg',
-      quant: 1,
+      quant: 1.5,
       valor: 105
     }
   ],
