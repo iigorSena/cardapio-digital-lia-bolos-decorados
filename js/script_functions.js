@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// EXIBIÇÃO DAS CATEGORIAS =========================================================================
+// CONTROLES DO CARDÁRPIO =========================================================================
 
 const itensSelecionados = new Map(); // Armazena os itens selecionados com dados completos
 
-function mostrarCategoria(categoria) {
+function mostrarCategoria(categoria) { // Exibe as categorias
   const cardapio = document.getElementById('cardapio');
   cardapio.innerHTML = ''; // Limpa o conteúdo atual
 
@@ -50,7 +50,12 @@ function mostrarCategoria(categoria) {
     const card = document.createElement('div');
     card.className = 'card';
 
-    const itemId = item.descricao; // Usamos a descrição como identificador
+    const itemId = item.descricao;
+    const precoUnitario = item.valor;
+    const quantidadeInicial = item.quant || 1;
+    const valorTotalInicial = categoria === 'bolo-decorado'
+      ? precoUnitario * 1.5 * quantidadeInicial
+      : precoUnitario * quantidadeInicial;
 
     let conteudo = `
       <img src="${item.imagem}" alt="${item.descricao}">
@@ -64,8 +69,10 @@ function mostrarCategoria(categoria) {
         <hr>
         <div class="preco">${item.preco}</div>
         <div id="area-qtd">
-        <label>Qtd:
-        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
+          <label>Qtd:
+          <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
+          <label>Total:</label>
+            <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
         </div>`;
     } else {
       conteudo += `
@@ -75,6 +82,8 @@ function mostrarCategoria(categoria) {
         <div id="area-qtd">
         <label>Qtd:
         <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 0}" min="1">
+          <label>Total:</label>
+          <p class="valor-total-item" id="valor-${itemId}">R$ ${valorTotalInicial.toFixed(2).replace('.', ',')}</p>
         </div>`;
     }
 
@@ -84,8 +93,30 @@ function mostrarCategoria(categoria) {
     cardapio.appendChild(card);
   });
 
-  // Eventos para atualizar os itens selecionados
-  const checkboxes = document.querySelectorAll('.card-checkbox');
+// Atualiza total por item em tempo real
+const inputs = document.querySelectorAll('.quantidade-input');
+  inputs.forEach(input => {
+    input.addEventListener('input', (e) => {
+      const id = e.target.dataset.id;
+      const item = cardapioData[categoria].find(i => i.descricao === id);
+      const quantidade = parseInt(e.target.value) || 1;
+
+      let total = 0;
+      if (categoria === 'bolo-decorado') {
+        total = item.valor * 1.5 * quantidade;
+      } else {
+        total = item.valor * quantidade;
+      }
+
+      const pTotal = document.getElementById(`valor-${id}`);
+      if (pTotal) {
+        pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+      }
+    });
+  });
+
+// Eventos para atualizar os itens selecionados
+const checkboxes = document.querySelectorAll('.card-checkbox');
   checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', (e) => {
       const id = e.target.dataset.id;
@@ -119,7 +150,27 @@ function atualizarContadorCarrinho() {
 
 // Clique no botão do carrinho: salva os itens e redireciona
 document.getElementById('btn-carrinho').addEventListener('click', () => {
-  // Salva no localStorage os itens selecionados como array
-  localStorage.setItem('itensCheckout', JSON.stringify(Array.from(itensSelecionados.values())));
+  const itensParaCheckout = [];
+
+  itensSelecionados.forEach((itemSelecionado, id) => {
+    // Captura o input de quantidade
+    const inputQtd = document.querySelector(`.quantidade-input[data-id="${id}"]`);
+    const quantidade = parseInt(inputQtd?.value) || 1;
+
+    // Clona o item original para não alterar o objeto base
+    const itemCopia = { ...itemSelecionado };
+    itemCopia.quant = quantidade;
+
+    // Se for bolo, multiplica por 1.5kg por unidade
+    if (itemCopia.massa) {
+      itemCopia.valorTotal = itemCopia.valor * 1.5 * quantidade;
+    } else {
+      itemCopia.valorTotal = itemCopia.valor * quantidade;
+    }
+
+    itensParaCheckout.push(itemCopia);
+  });
+
+  localStorage.setItem('itensCheckout', JSON.stringify(itensParaCheckout));
   window.location.href = 'checkout.html';
 });
