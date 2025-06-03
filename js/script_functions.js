@@ -62,12 +62,20 @@ function mostrarCategoria(categoria) {
     if (categoria === 'doces') {
       conteudo += `
         <hr>
-        <div class="preco">${item.preco}</div>`;
+        <div class="preco">${item.preco}</div>
+        <div id="area-qtd">
+        <label>Qtd:
+        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 1}" min="1">
+        </div>`;
     } else {
       conteudo += `
         <div class="massa">${item.massa}</div>
         <hr>
-        <div class="preco">${item.preco_kg}</div>`;
+        <div class="preco">${item.preco_kg}</div>
+        <div id="area-qtd">
+        <label>Qtd:
+        <input type="number" class="quantidade-input" data-id="${itemId}" value="${item.quant || 1}" min="1">
+        </div>`;
     }
 
     conteudo += `</div>`;

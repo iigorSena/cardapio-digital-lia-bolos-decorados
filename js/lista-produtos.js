@@ -5,6 +5,7 @@ const cardapioData = {
       descricao: 'Pasta americana',
       massa: 'Massa de Margarina',
       preco_kg: 'R$ 110,00 kg',
+      quant: 1,
       valor: 110
     },
     {

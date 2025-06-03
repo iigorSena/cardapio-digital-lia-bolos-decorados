@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
 
       mensagem += `*Valor total:* R$ ${totalReais}%0A`;
-      mensagem += `%0A Aguardo confirmação do pedido.`;
+      mensagem += `%0A Gostaria de confirmar meu pedido.`;
 
       const telefone = '5598992278315';
       const url = `https://wa.me/${telefone}?text=${mensagem}`;
