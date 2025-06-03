@@ -1,3 +1,5 @@
+const itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
+
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('checkout');
   const itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
@@ -41,4 +43,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalFixo = document.getElementById('valor-total-fixo');
   totalFixo.innerHTML = `<strong>Valor total: R$ ${totalReais}</strong>`;
   container.appendChild(totalElement);
+});
+
+
+// Botão de Enviar Pedido
+document.addEventListener('DOMContentLoaded', () => {
+  const btnEnviar = document.getElementById('btn-enviar-pedido');
+
+  if (btnEnviar) {
+    btnEnviar.addEventListener('click', () => {
+      let mensagem = '*Pedido Lia Bolos Decorados*%0A%0A';
+
+      itens.forEach((item, index) => {
+        mensagem += `*${index + 1}.* ${item.descricao}%0A`;
+        if (item.massa) {
+          mensagem += `• Massa: ${item.massa}%0A`;
+        }
+        if (item.preco) {
+          mensagem += `• Preço: ${item.preco}%0A`;
+        } else {
+          mensagem += `• Preço: ${item.preco_kg}%0A`;
+        }
+        mensagem += `%0A`;
+      });
+
+      // Total
+      let totalCentavos = 0;
+      itens.forEach(item => {
+        if (typeof item.valor === 'number') {
+          totalCentavos += parseInt((item.valor * 100).toFixed(0));
+        }
+      });
+      const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
+
+      mensagem += `*Valor total:* R$ ${totalReais}%0A`;
+      mensagem += `%0A Aguardo confirmação do pedido.`;
+
+      const telefone = '5598992278315';
+      const url = `https://wa.me/${telefone}?text=${mensagem}`;
+      window.open(url, '_blank');
+    });
+  }
 });
