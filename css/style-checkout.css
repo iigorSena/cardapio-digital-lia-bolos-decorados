@@ -2,8 +2,14 @@ body{
     padding-bottom: 50px;
 }
 
+#area-title-pedido{
+  background-color: #73313B;
+}
 #title{
-    text-align: center;
+  text-align: center;
+  color: white;
+  margin: 0px;
+  padding-block: 5px;
 }
 
 .card-checkout {
