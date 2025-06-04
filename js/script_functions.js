@@ -1,3 +1,5 @@
+let filtroAtualDoces = 'Todos';
+
 // CONTROLE DE EXIBIÇÃO DOS BOTÕES DO MENU =======================================================
 function selecionarCategoria(botao) {
   const categoria = botao.dataset.categoria;
@@ -28,8 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const itensSelecionados = new Map(); // Armazena os itens selecionados com dados completos
 
-function mostrarCategoria(categoria) { // Exibe as categorias
+function mostrarCategoria(categoria, filtro = 'Todos') { // Exibe as categorias
   const cardapio = document.getElementById('cardapio');
+  filtroAtualDoces = filtro; // Salva a seleção atual
   cardapio.innerHTML = ''; // Limpa o conteúdo atual
 
   // Adiciona a div 'area-aviso' com a mensagem se for a categoria de bolos
@@ -45,8 +48,32 @@ function mostrarCategoria(categoria) { // Exibe as categorias
     cardapio.appendChild(areaAviso); // Insere a área do aviso antes dos cards
   }
 
+// Adiciona o filtro somente para a categoria 'doces'
+if (categoria === 'doces') {
+  const areaFiltro = document.createElement('div');
+  areaFiltro.className = 'filtro-doces';
+  areaFiltro.innerHTML = `
+  <form id="filtro-und">
+    <label><input type="radio" name="filtroUnd" value="Todos" ${filtro === 'Todos' ? 'checked' : ''}> Todos</label>
+    <label><input type="radio" name="filtroUnd" value="Unidade" ${filtro === 'Unidade' ? 'checked' : ''}> Unidade</label>
+    <label><input type="radio" name="filtroUnd" value="Cento" ${filtro === 'Cento' ? 'checked' : ''}> Cento</label>
+  </form>
+`;
+
+  cardapio.appendChild(areaFiltro);
+
+  // Adiciona escutador ao filtro
+  areaFiltro.querySelectorAll('input[name="filtroUnd"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      mostrarCategoria('doces', radio.value);
+    });
+  });
+}
+
+
 // Renderiza os cards da categoria selecionada
 cardapioData[categoria].forEach(item => {
+  if (categoria === 'doces' && filtro !== 'Todos' && item.und !== filtro) return; // Aplica o filtro
   const card = document.createElement('div');
   card.className = 'card';
 
