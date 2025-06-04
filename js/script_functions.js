@@ -104,44 +104,10 @@ inputs.forEach(input => {
   const id = input.dataset.id;
   const item = cardapioData[categoria].find(i => i.descricao === id);
 
-// Atualiza total enquanto digita (sem forçar valor)
-input.addEventListener('input', (e) => {
-  let quantidade = parseFloat(e.target.value);
-
-  // Permite apagar
-  if (isNaN(quantidade)) return;
-
-  // Salva no cardapioData
-  item.quant = quantidade;
-
-  // Atualiza valor total
-  const total = item.valor * quantidade;
-  const pTotal = document.getElementById(`valor-${id}`);
-  if (pTotal) {
-    pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-  }
-});
-
-
-  // Valida o valor mínimo ao sair do campo
-  input.addEventListener('blur', (e) => {
+  // Atualiza total enquanto digita (sem forçar valor)
+  input.addEventListener('input', (e) => {
     let quantidade = parseFloat(e.target.value);
-
-    if (categoria === 'bolo-decorado') {
-      if (isNaN(quantidade) || quantidade < 1.5) {
-        quantidade = 1.5;
-      }
-    } else {
-      if (isNaN(quantidade) || quantidade < 1) {
-        quantidade = 1;
-      } else {
-        quantidade = Math.floor(quantidade);
-      }
-    }
-
-    // Atualiza valor e salva
-    item.quant = quantidade;
-    e.target.value = quantidade;
+    if (isNaN(quantidade)) return; // evita NaN ao apagar
 
     const total = item.valor * quantidade;
     const pTotal = document.getElementById(`valor-${id}`);
@@ -150,6 +116,31 @@ input.addEventListener('input', (e) => {
     }
   });
 
+  // Valida o valor mínimo ao sair do campo
+  input.addEventListener('blur', (e) => {
+    let quantidade = parseFloat(e.target.value);
+
+    if (categoria === 'bolo-decorado') {
+      if (isNaN(quantidade) || quantidade < 1.5) {
+        quantidade = 1.5;
+        e.target.value = quantidade;
+      }
+    } else {
+      if (isNaN(quantidade) || quantidade < 1) {
+        quantidade = 1;
+        e.target.value = quantidade;
+      } else {
+        quantidade = Math.floor(quantidade); // garante inteiro
+        e.target.value = quantidade;
+      }
+    }
+
+    const total = item.valor * quantidade;
+    const pTotal = document.getElementById(`valor-${id}`);
+    if (pTotal) {
+      pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+  });
 });
 
 
