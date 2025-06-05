@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const divRecheios = document.createElement('div');
           divRecheios.className = 'recheios';
           divRecheios.innerHTML = `
-            <p><strong>Escolha os recheios: Até 2 gratuitos</strong></p>
+            <p><strong>Escolha 2 recheios</strong></p>
             <div class="recheios-scroll">
               <table class="tabela-recheios">
                 ${[...RECHEIOS_GRATIS.map(recheio => `
@@ -100,25 +100,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const index = parseInt(checkbox.dataset.index);
       const valor = parseFloat(checkbox.dataset.valor);
       const nome = checkbox.dataset.nome;
-      const isGratuito = valor === 0;
 
       if (!itens[index].recheiosExtras) itens[index].recheiosExtras = [];
 
-      // Recheios gratuitos: limitar a 2
-      if (isGratuito) {
-        const recheiosGratuitosSelecionados = itens[index].recheiosExtras.filter(r => r.valor === 0);
+      // Limitar o total de recheios (gratuitos ou pagos) a no máximo 2
+      const recheiosSelecionados = itens[index].recheiosExtras;
 
-        if (checkbox.checked && recheiosGratuitosSelecionados.length >= 2) {
-          checkbox.checked = false;
-          alert('Você só pode selecionar até 2 recheios gratuitos.');
-          return;
-        }
+      if (checkbox.checked && recheiosSelecionados.length >= 2) {
+        checkbox.checked = false;
+        alert('Você só pode selecionar até 2 recheios.');
+        return;
       }
 
       if (checkbox.checked) {
-        itens[index].recheiosExtras.push({ nome, valor });
+        recheiosSelecionados.push({ nome, valor });
       } else {
-        itens[index].recheiosExtras = itens[index].recheiosExtras.filter(r => r.nome !== nome);
+        itens[index].recheiosExtras = recheiosSelecionados.filter(r => r.nome !== nome);
       }
 
       const extraTotal = itens[index].recheiosExtras.reduce((sum, r) => sum + r.valor, 0);
