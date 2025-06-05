@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const divRecheios = document.createElement('div');
           divRecheios.className = 'recheios';
           divRecheios.innerHTML = `
-            <p><strong>Escolha os recheios: *Gratuitos, até 2</strong></p>
+            <p><strong>Escolha os recheios: Até 2 gratuitos</strong></p>
             <div class="recheios-scroll">
               <table class="tabela-recheios">
                 ${[...RECHEIOS_GRATIS.map(recheio => `
