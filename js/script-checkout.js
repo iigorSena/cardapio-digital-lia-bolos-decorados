@@ -95,28 +95,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 // Checkbox de recheios
-    document.querySelectorAll('.check-recheio').forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
-        const index = parseInt(checkbox.dataset.index);
-        const valor = parseFloat(checkbox.dataset.valor);
-        const nome = checkbox.dataset.nome;
+  document.querySelectorAll('.check-recheio').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const index = parseInt(checkbox.dataset.index);
+      const valor = parseFloat(checkbox.dataset.valor);
+      const nome = checkbox.dataset.nome;
+      const isGratuito = valor === 0;
 
-        if (!itens[index].recheiosExtras) itens[index].recheiosExtras = [];
+      if (!itens[index].recheiosExtras) itens[index].recheiosExtras = [];
 
-        if (checkbox.checked) {
-          itens[index].recheiosExtras.push({ nome, valor });
-        } else {
-          itens[index].recheiosExtras = itens[index].recheiosExtras.filter(r => r.nome !== nome);
+      // Recheios gratuitos: limitar a 2
+      if (isGratuito) {
+        const recheiosGratuitosSelecionados = itens[index].recheiosExtras.filter(r => r.valor === 0);
+
+        if (checkbox.checked && recheiosGratuitosSelecionados.length >= 2) {
+          checkbox.checked = false;
+          alert('Você só pode selecionar até 2 recheios gratuitos.');
+          return;
         }
+      }
 
-        const extraTotal = itens[index].recheiosExtras.reduce((sum, r) => sum + r.valor, 0);
-        itens[index].valorTotalOriginal = itens[index].valorTotalOriginal || itens[index].valorTotal;
-        itens[index].valorTotal = itens[index].valorTotalOriginal + extraTotal;
+      if (checkbox.checked) {
+        itens[index].recheiosExtras.push({ nome, valor });
+      } else {
+        itens[index].recheiosExtras = itens[index].recheiosExtras.filter(r => r.nome !== nome);
+      }
 
-        localStorage.setItem('itensCheckout', JSON.stringify(itens));
-        atualizarCheckout();
-      });
+      const extraTotal = itens[index].recheiosExtras.reduce((sum, r) => sum + r.valor, 0);
+      itens[index].valorTotalOriginal = itens[index].valorTotalOriginal || itens[index].valorTotal;
+      itens[index].valorTotal = itens[index].valorTotalOriginal + extraTotal;
+
+      localStorage.setItem('itensCheckout', JSON.stringify(itens));
+      atualizarCheckout();
     });
+  });
+
   }
 
   atualizarCheckout();
