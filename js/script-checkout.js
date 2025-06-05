@@ -1,5 +1,7 @@
+// Controle de exibição dos cards =============================================================
+let itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
+
 document.addEventListener('DOMContentLoaded', () => {
-  let itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
   const container = document.getElementById('checkout');
 
   function atualizarCheckout() {
@@ -13,8 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   itens.forEach((item, index) => {
-    const card = document.createElement('div');
-    card.className = 'card-checkout';
+  const areaCheckout = document.createElement('div');
+  areaCheckout.className = 'area-checkout';
+
+  const card = document.createElement('div');
+  card.className = 'card-checkout';
 
   let conteudo = `
     <img src="${item.imagem}" alt="${item.descricao}">
@@ -23,33 +28,58 @@ document.addEventListener('DOMContentLoaded', () => {
   `;
 
   if (item.massa) {
-    conteudo += `
-      <div class="massa">${item.massa}</div>
-      <hr>
-      <div class="quantidade">Qtd: ${item.quant} kg</div>
-      <div class="preco">Total: R$ ${item.valorTotal.toFixed(2).replace('.', ',')}</div>`;
-  } else {
-    conteudo += `
-      <hr>
-      <div class="quantidade">Qtd: ${item.quant}</div>
-      <div class="preco">Total: R$ ${item.valorTotal.toFixed(2).replace('.', ',')}</div>`;
-  }
+        conteudo += `
+          <div class="massa">${item.massa}</div>
+          <hr>
+          <div class="quantidade">Qtd: ${item.quant} kg</div>
+          <div class="preco">Total: R$ ${item.valorTotal.toFixed(2).replace('.', ',')}</div>`;
+      } else {
+        conteudo += `
+          <hr>
+          <div class="quantidade">Qtd: ${item.quant}</div>
+          <div class="preco">Total: R$ ${item.valorTotal.toFixed(2).replace('.', ',')}</div>`;
+      }
 
-  conteudo += `
-    </div> <!-- Fecha .card-info -->
-    <div id="area-btn-remover">
-      <button class="btn-remove">
-        <img src="img/lixeira.png" alt="Remover" data-index="${index}">
-      </button>
-    </div>`;
+      conteudo += `
+        </div> <!-- Fecha .card-info -->
+        <div id="area-btn-remover">
+          <button class="btn-remove">
+            <img src="img/lixeira.png" alt="Remover" data-index="${index}">
+          </button>
+        </div>`;
 
+      card.innerHTML = conteudo;
+      areaCheckout.appendChild(card); // Anexa o card à área
 
-  card.innerHTML = conteudo;
-  container.appendChild(card);
-  totalCentavos += Math.round(item.valorTotal * 100);
-  });
+      if (item.massa) {
+          const divRecheios = document.createElement('div');
+          divRecheios.className = 'recheios';
+          divRecheios.innerHTML = `
+            <p><strong>Escolha os recheios: *Gratuitos, até 2</strong></p>
+            <div class="recheios-scroll">
+              <table class="tabela-recheios">
+                ${[...RECHEIOS_GRATIS.map(recheio => `
+                  <tr>
+                    <td><label><input type="checkbox" class="check-recheio" data-index="${index}" data-nome="${recheio}" data-valor="0" ${item.recheiosExtras?.some(r => r.nome === recheio) ? 'checked' : ''}> ${recheio}</label></td>
+                    <td>R$ 0,00</td>
+                  </tr>
+                `), ...RECHEIOS_PAGOS.map(recheio => `
+                  <tr>
+                    <td><label><input type="checkbox" class="check-recheio" data-index="${index}" data-nome="${recheio.nome}" data-valor="${recheio.valor}" ${item.recheiosExtras?.some(r => r.nome === recheio.nome) ? 'checked' : ''}> ${recheio.nome}</label></td>
+                    <td>R$ ${recheio.valor.toFixed(2).replace('.', ',')}</td>
+                  </tr>
+                `)].join('')}
+              </table>
+            </div>
+          `;
+        areaCheckout.appendChild(divRecheios);
+      }
 
-  const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
+      container.appendChild(areaCheckout);
+      totalCentavos += Math.round(item.valorTotal * 100);
+    }); // <-- fechamento correto do forEach aqui
+
+    const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
     const totalFixo = document.getElementById('valor-total-fixo');
     totalFixo.innerHTML = `<strong>Valor total: R$ ${totalReais}</strong>`;
 
@@ -60,12 +90,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const index = parseInt(botao.dataset.index);
         itens.splice(index, 1);
         localStorage.setItem('itensCheckout', JSON.stringify(itens));
-        atualizarCheckout(); // Re-renderiza
+        atualizarCheckout();
+      });
+    });
+
+// Checkbox de recheios
+    document.querySelectorAll('.check-recheio').forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const index = parseInt(checkbox.dataset.index);
+        const valor = parseFloat(checkbox.dataset.valor);
+        const nome = checkbox.dataset.nome;
+
+        if (!itens[index].recheiosExtras) itens[index].recheiosExtras = [];
+
+        if (checkbox.checked) {
+          itens[index].recheiosExtras.push({ nome, valor });
+        } else {
+          itens[index].recheiosExtras = itens[index].recheiosExtras.filter(r => r.nome !== nome);
+        }
+
+        const extraTotal = itens[index].recheiosExtras.reduce((sum, r) => sum + r.valor, 0);
+        itens[index].valorTotalOriginal = itens[index].valorTotalOriginal || itens[index].valorTotal;
+        itens[index].valorTotal = itens[index].valorTotalOriginal + extraTotal;
+
+        localStorage.setItem('itensCheckout', JSON.stringify(itens));
+        atualizarCheckout();
       });
     });
   }
-  
-  atualizarCheckout(); // Chama ao carregar a página
+
+  atualizarCheckout();
 });
 
 // Botão de Enviar Pedido ==================================================================
@@ -87,9 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         mensagem += `• Quantidade: ${item.quant}%0A`;
 
-        // Calcula valor total individual
+        if (item.recheiosExtras && item.recheiosExtras.length > 0) {
+          mensagem += `• Recheios adicionais:%0A`;
+          item.recheiosExtras.forEach(r => {
+            mensagem += `  - ${r.nome}: R$ ${r.valor.toFixed(2).replace('.', ',')}%0A`;
+          });
+        }
+
         const valorItem = item.valorTotal || 0;
-        const valorItemFormatado = (valorItem).toFixed(2).replace('.', ',');
+        const valorItemFormatado = valorItem.toFixed(2).replace('.', ',');
 
         mensagem += `• Valor do item: R$ ${valorItemFormatado}%0A%0A`;
 
