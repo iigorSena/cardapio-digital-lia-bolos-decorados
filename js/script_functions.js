@@ -127,10 +127,20 @@ cardapioData[categoria].forEach(item => {
 });
 
 // Atualiza total por item em tempo real
+// Atualiza total por item em tempo real
 const inputs = document.querySelectorAll('.quantidade-input');
 inputs.forEach(input => {
   const id = input.dataset.id;
   const item = cardapioData[categoria].find(i => i.descricao === id);
+
+  function salvarQuantidade(quantidade) {
+    const existente = itensSelecionados.get(id);
+    if (existente) {
+      itensSelecionados.set(id, { ...existente, quant: quantidade });
+    } else {
+      itensSelecionados.set(id, { ...item, quant: quantidade });
+    }
+  }
 
   input.addEventListener('input', (e) => {
     let quantidade = parseFloat(e.target.value);
@@ -142,10 +152,7 @@ inputs.forEach(input => {
       pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
     }
 
-    if (itensSelecionados.has(id)) {
-      const atualizado = { ...itensSelecionados.get(id), quant: quantidade };
-      itensSelecionados.set(id, atualizado);
-    }
+    salvarQuantidade(quantidade); // <-- aqui salva no map
   });
 
   input.addEventListener('blur', (e) => {
@@ -172,10 +179,7 @@ inputs.forEach(input => {
       pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
     }
 
-    if (itensSelecionados.has(id)) {
-      const atualizado = { ...itensSelecionados.get(id), quant: quantidade };
-      itensSelecionados.set(id, atualizado);
-    }
+    salvarQuantidade(quantidade); // <-- e aqui também
   });
 });
 
@@ -214,20 +218,18 @@ function atualizarContadorCarrinho() {
 document.getElementById('btn-carrinho').addEventListener('click', () => {
   const itensParaCheckout = [];
 
-  itensSelecionados.forEach((itemSelecionado, id) => {
-    const inputQtd = document.querySelector(`.quantidade-input[data-id="${id}"]`);
-    let quantidade = parseFloat(inputQtd?.value) || 1;
+  itensSelecionados.forEach((itemSelecionado) => {
+    const quantidade = itemSelecionado.quant || 1;
+    const valorTotal = itemSelecionado.valor * quantidade;
 
-    if (itemSelecionado.massa && quantidade < 1.5) quantidade = 1.5;
-
-    const itemCopia = { ...itemSelecionado };
-    itemCopia.quant = quantidade;
-    itemCopia.valorTotal = itemSelecionado.valor * quantidade;
-
-    itensParaCheckout.push(itemCopia);
+    itensParaCheckout.push({
+      ...itemSelecionado,
+      valorTotal,
+    });
   });
 
-  localStorage.setItem('itensCheckout', JSON.stringify(itensParaCheckout));
-  window.location.href = 'checkout.html';
-});
-}
+
+    localStorage.setItem('itensCheckout', JSON.stringify(itensParaCheckout));
+    window.location.href = 'checkout.html';
+  });
+  }

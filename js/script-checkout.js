@@ -158,7 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const valorItem = item.valorTotal || 0;
     const valorItemFormatado = valorItem.toFixed(2).replace('.', ',');
 
+    mensagem += `• Quantidade: ${item.quant}${item.massa ? ' kg' : ''}%0A`;
     mensagem += `• Valor do item: R$ ${valorItemFormatado}%0A%0A`;
+
 
     totalCentavos += Math.round(valorItem * 100);
   });
