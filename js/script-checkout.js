@@ -125,45 +125,52 @@ document.addEventListener('DOMContentLoaded', () => {
 // Botão de Enviar Pedido ==================================================================
 document.addEventListener('DOMContentLoaded', () => {
   const btnEnviar = document.getElementById('btn-enviar-pedido');
-  const itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
 
   if (btnEnviar) {
-    btnEnviar.addEventListener('click', () => {
-      let mensagem = '*Pedido Lia Bolos Decorados*%0A%0A';
-      let totalCentavos = 0;
+  btnEnviar.addEventListener('click', () => {
+  const itens = JSON.parse(localStorage.getItem('itensCheckout')) || [];
+  let mensagem = '*Pedido Lia Bolos Decorados*%0A%0A';
+  let totalCentavos = 0;
 
-      itens.forEach((item, index) => {
-        mensagem += `*${index + 1}.* ${item.descricao}%0A`;
+  // Recalcular total com recheios
+  itens.forEach(item => {
+    if (item.recheiosExtras) {
+      const extraTotal = item.recheiosExtras.reduce((sum, r) => sum + r.valor, 0);
+      item.valorTotalOriginal = item.valorTotalOriginal || (item.valorTotal - extraTotal);
+      item.valorTotal = item.valorTotalOriginal + extraTotal;
+    }
+  });
 
-        if (item.massa) {
-          mensagem += `• Massa: ${item.massa}%0A`;
-        }
+  itens.forEach((item, index) => {
+    mensagem += `*${index + 1}.* ${item.descricao}%0A`;
 
-        mensagem += `• Quantidade: ${item.quant}%0A`;
+    if (item.massa) {
+      if (item.recheiosExtras && item.recheiosExtras.length > 0) {
+        mensagem += `• Recheios escolhidos:%0A`;
+        item.recheiosExtras.forEach(r => {
+          mensagem += `  - ${r.nome}: R$ ${r.valor.toFixed(2).replace('.', ',')}%0A`;
+        });
+      } else {
+        mensagem += `• Recheios escolhidos: Não informado%0A`;
+      }
+    }
 
-        if (item.recheiosExtras && item.recheiosExtras.length > 0) {
-          mensagem += `• Recheios adicionais:%0A`;
-          item.recheiosExtras.forEach(r => {
-            mensagem += `  - ${r.nome}: R$ ${r.valor.toFixed(2).replace('.', ',')}%0A`;
-          });
-        }
+    const valorItem = item.valorTotal || 0;
+    const valorItemFormatado = valorItem.toFixed(2).replace('.', ',');
 
-        const valorItem = item.valorTotal || 0;
-        const valorItemFormatado = valorItem.toFixed(2).replace('.', ',');
+    mensagem += `• Valor do item: R$ ${valorItemFormatado}%0A%0A`;
 
-        mensagem += `• Valor do item: R$ ${valorItemFormatado}%0A%0A`;
+    totalCentavos += Math.round(valorItem * 100);
+  });
 
-        totalCentavos += Math.round(valorItem * 100);
-      });
+  const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
 
-      const totalReais = (totalCentavos / 100).toFixed(2).replace('.', ',');
+  mensagem += `*Valor total:* R$ ${totalReais}%0A`;
+  mensagem += `%0A Gostaria de confirmar meu pedido.`;
 
-      mensagem += `*Valor total:* R$ ${totalReais}%0A`;
-      mensagem += `%0A Gostaria de confirmar meu pedido.`;
-
-      const telefone = '5598992278315';
-      const url = `https://wa.me/${telefone}?text=${mensagem}`;
-      window.open(url, '_blank');
-    });
-  }
+  const telefone = '5598992278315';
+  const url = `https://wa.me/${telefone}?text=${mensagem}`;
+  window.open(url, '_blank');
+ }); // fecha o addEventListener
+  } // ✅ <-- esta chave estava faltando
 });

@@ -79,7 +79,8 @@ cardapioData[categoria].forEach(item => {
 
   const itemId = item.descricao;
   const precoUnitario = item.valor;
-  const quantidadeInicial = item.quant || 1;
+  const quantidadeSalva = itensSelecionados.get(itemId)?.quant;
+  const quantidadeInicial = quantidadeSalva || (categoria === 'bolo-decorado' ? 1.5 : 1);
 
   const valorTotalInicial = categoria === 'bolo-decorado'
     ? precoUnitario * quantidadeInicial
@@ -131,19 +132,22 @@ inputs.forEach(input => {
   const id = input.dataset.id;
   const item = cardapioData[categoria].find(i => i.descricao === id);
 
-  // Atualiza total enquanto digita (sem forçar valor)
   input.addEventListener('input', (e) => {
     let quantidade = parseFloat(e.target.value);
-    if (isNaN(quantidade)) return; // evita NaN ao apagar
+    if (isNaN(quantidade)) return;
 
     const total = item.valor * quantidade;
     const pTotal = document.getElementById(`valor-${id}`);
     if (pTotal) {
       pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
     }
+
+    if (itensSelecionados.has(id)) {
+      const atualizado = { ...itensSelecionados.get(id), quant: quantidade };
+      itensSelecionados.set(id, atualizado);
+    }
   });
 
-  // Valida o valor mínimo ao sair do campo
   input.addEventListener('blur', (e) => {
     let quantidade = parseFloat(e.target.value);
 
@@ -157,7 +161,7 @@ inputs.forEach(input => {
         quantidade = 1;
         e.target.value = quantidade;
       } else {
-        quantidade = Math.floor(quantidade); // garante inteiro
+        quantidade = Math.floor(quantidade);
         e.target.value = quantidade;
       }
     }
@@ -166,6 +170,11 @@ inputs.forEach(input => {
     const pTotal = document.getElementById(`valor-${id}`);
     if (pTotal) {
       pTotal.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    }
+
+    if (itensSelecionados.has(id)) {
+      const atualizado = { ...itensSelecionados.get(id), quant: quantidade };
+      itensSelecionados.set(id, atualizado);
     }
   });
 });
@@ -179,7 +188,9 @@ checkboxes.forEach(checkbox => {
     const item = cardapioData[categoria].find(i => i.descricao === id);
 
     if (e.target.checked) {
-      itensSelecionados.set(id, item);
+      const quantidadeInput = document.querySelector(`.quantidade-input[data-id="${id}"]`);
+      const quantidade = parseFloat(quantidadeInput?.value) || (categoria === 'bolo-decorado' ? 1.5 : 1);
+      itensSelecionados.set(id, { ...item, quant: quantidade });
     } else {
       itensSelecionados.delete(id);
     }
