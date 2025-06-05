@@ -235,7 +235,7 @@ const cardapioData = {
     valor: 7
   },
   {
-    imagem: 'img/img-doces-18.jpg',
+    imagem: 'img/doces/Modelado-ninho.jpeg',
     descricao: 'Modelados leite ninho',
     preco: 'R$ 250,00 (cento)',
     und: 'Cento',
@@ -257,9 +257,152 @@ const cardapioData = {
     und: 'Cento',
     quant: 1,
     valor: 200
+  },
+  {
+  imagem: 'img/doces/casadinho.jpg',
+  descricao: 'Casadinho',
+  preco: 'R$ 130,00 (cento)',
+  und: 'Cento',
+  quant: 1,
+  valor: 130
+  },
+  {
+    imagem: 'img/doces/brigadeiro.jpg',
+    descricao: 'Brigadeiro',
+    preco: 'R$ 120,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 120
+  },
+  {
+    imagem: 'img/doces/beijinho.jpg',
+    descricao: 'Beijinho',
+    preco: 'R$ 120,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 120
+  },
+  {
+    imagem: 'img/doces/coco-queimado.jpg',
+    descricao: 'Côco queimado',
+    preco: 'R$ 140,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 140
+  },
+  {
+    imagem: 'img/doces/surpresa-uva.jpg',
+    descricao: 'Surpresa de uva',
+    preco: 'R$ 150,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 150
+  },
+  {
+    imagem: 'img/doces/ninho-nutella.jpg',
+    descricao: 'Ninho com Nutella',
+    preco: 'R$ 150,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 150
+  },
+  {
+    imagem: 'img/doces/brigadeiro-gourmet.jpg',
+    descricao: 'Brigadeiro gourmet',
+    preco: 'R$ 150,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 150
+  },
+  {
+    imagem: 'img/doces/brigadeiro-branco.jpg',
+    descricao: 'Brigadeiro branco gourmet',
+    preco: 'R$ 150,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 150
+  },
+  {
+    imagem: 'img/doces/romeu-julieta.jpg',
+    descricao: 'Romeu e Julieta',
+    preco: 'R$ 130,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 130
+  },
+  {
+    imagem: 'img/doces/churros.jpg',
+    descricao: 'Churros',
+    preco: 'R$ 130,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 130
+  },
+  {
+    imagem: 'img/doces/morango.jpg',
+    descricao: 'Morangos',
+    preco: 'R$ 180,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 180
+  },
+  {
+    imagem: 'img/doces/cajuzinho.jpg',
+    descricao: 'Cajuzinho (Amendoim)',
+    preco: 'R$ 100,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 100
+  },
+  {
+    imagem: 'img/doces/olho-de-sogra.jpg',
+    descricao: 'Olho de sogra',
+    preco: 'R$ 140,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 140
+  },
+  {
+    imagem: 'img/doces/trufas-diversas.jpg',
+    descricao: 'Trufas (Diversos sabores)',
+    preco: 'R$ 230,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 230
+  },
+  {
+    imagem: 'img/doces/copo-chocolate.jpg',
+    descricao: 'Copo de chocolate',
+    preco: 'R$ 130,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 130
+  },
+  {
+    imagem: 'img/doces/copo-chocolate-cereja.jpg',
+    descricao: 'Copo de chocolate com cereja',
+    preco: 'R$ 160,00 (cento)',
+    und: 'Cento',
+    quant: 1,
+    valor: 160
+  },
+  {
+    imagem: 'img/doces/bem-casado-crepom.jpg',
+    descricao: 'Bem casado (crepom)',
+    preco: 'R$ 7,00 und',
+    und: 'Unidade',
+    quant: 1,
+    valor: 7
+  },
+  {
+    imagem: 'img/doces/bem-casado-tecido.jpg',
+    descricao: 'Bem casado (tecido)',
+    preco: 'R$ 9,00 und',
+    und: 'Unidade',
+    quant: 1,
+    valor: 9
   }
 ]
-
 };
 
 const RECHEIOS_GRATIS = [
