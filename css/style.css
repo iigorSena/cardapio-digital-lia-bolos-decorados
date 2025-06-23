@@ -159,7 +159,7 @@ h1 {
 }
 
 #area-qtd input{
-  width: 30px;
+  width: 70px;
   color: #E40DB0;
   font-size: 12pt;
   border: 1px solid #E40DB0;
@@ -169,6 +169,7 @@ h1 {
 }
 .quantidade-input:focus{
   outline: 1.5px solid #E40DB0;
+
 }
 
 #area-total-item{
@@ -283,6 +284,9 @@ header {
 }
 #btn-carrinho{
   right: 10px;
+}
+#area-qtd input{
+  width: 50px;
 }
 
 .rodape {

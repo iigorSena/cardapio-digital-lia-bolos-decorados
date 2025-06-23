@@ -140,7 +140,7 @@ const cardapioData = {
   },
   {
     imagem: 'img/doces/Cupcakes-chantilly.jpeg',
-    descricao: 'Cupcake chantilly',
+    descricao: 'Cupcake chantilly - com recheio',
     preco: 'R$ 6,00 und',
     und: 'Unidade',
     quant: 1,
