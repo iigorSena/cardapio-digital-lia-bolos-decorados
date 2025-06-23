@@ -87,7 +87,7 @@ cardapioData[categoria].forEach(item => {
     : precoUnitario * quantidadeInicial;
 
   let conteudo = `
-    <img src="${item.imagem}" alt="${item.descricao}">
+    <img src="${item.imagem}" alt="${item.descricao}" onerror="this.onerror=null;this.src='img/sem-imagem.jpg';">
     <div class="card-info">
     <div class="descricao">${item.descricao}</div>
     <input type="checkbox" class="card-checkbox" data-id="${itemId}" ${itensSelecionados.has(itemId) ? 'checked' : ''}>
@@ -126,7 +126,6 @@ cardapioData[categoria].forEach(item => {
   cardapio.appendChild(card);
 });
 
-// Atualiza total por item em tempo real
 // Atualiza total por item em tempo real
 const inputs = document.querySelectorAll('.quantidade-input');
 inputs.forEach(input => {
