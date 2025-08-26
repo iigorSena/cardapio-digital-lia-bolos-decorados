@@ -50,12 +50,17 @@ h1 {
   color: white;
   padding-block: 10px;
   border: none;
+  border-inline: 0.5px solid white;
   cursor: pointer;
   transition: 0.3s;
   font-weight: bold;
   text-align: center;
 }
-
+.btn-categoria.ativo {
+  background: #73313B;
+  color: #fff;
+  border: none;
+}
 .cardapio {
   width: 100%;
   display: flex;
@@ -72,10 +77,6 @@ h1 {
 
 }
 
-.btn-categoria.ativo {
-  background: #73313B;
-  color: #fff;
-}
 .lista-produtos{
   width: 100%;
   display: flex;

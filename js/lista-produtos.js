@@ -234,7 +234,26 @@ const cardapioData = {
     quant: 1,
     valor: 7
   },
+
   {
+    imagem: 'img/doces/bem-casado-crepom.jpg',
+    descricao: 'Bem casado (crepom)',
+    preco: 'R$ 7,00 und',
+    und: 'Unidade',
+    quant: 1,
+    valor: 7
+  },
+  {
+    imagem: 'img/doces/bem-casado-tecido.jpg',
+    descricao: 'Bem casado (tecido)',
+    preco: 'R$ 9,00 und',
+    und: 'Unidade',
+    quant: 1,
+    valor: 9
+  }
+],
+'doces_cento' : [
+    {
     imagem: 'img/doces/Modelado-ninho.jpeg',
     descricao: 'Modelados leite ninho',
     preco: 'R$ 250,00 (cento)',
@@ -386,22 +405,6 @@ const cardapioData = {
     quant: 1,
     valor: 160
   },
-  {
-    imagem: 'img/doces/bem-casado-crepom.jpg',
-    descricao: 'Bem casado (crepom)',
-    preco: 'R$ 7,00 und',
-    und: 'Unidade',
-    quant: 1,
-    valor: 7
-  },
-  {
-    imagem: 'img/doces/bem-casado-tecido.jpg',
-    descricao: 'Bem casado (tecido)',
-    preco: 'R$ 9,00 und',
-    und: 'Unidade',
-    quant: 1,
-    valor: 9
-  }
 ]
 };
 

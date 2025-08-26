@@ -38,7 +38,7 @@ function renderizarCardapio() {
           <input type="checkbox" class="card-checkbox" data-id="${itemId}" ${itensSelecionados.has(itemId) ? 'checked' : ''}>
       `;
 
-      if (categoria === 'doces') {
+      if (categoria === 'doces' || categoria === 'doces_cento') {
         conteudo += `
           <div class="preco">${item.preco}</div>
           <hr>
@@ -78,6 +78,23 @@ function renderizarCardapio() {
 
   inicializarCategorias(); // aplica listeners depois que tudo foi renderizado
 }
+// Validação para impedir quantidade menor que 1.5 nos bolos
+document.addEventListener("blur", function (e) {
+  if (e.target.classList.contains("quantidade-input")) {
+    const input = e.target;
+    const categoria = input.closest(".card").parentElement.id.replace("lista-", "");
+
+    if (categoria !== "doces" && categoria !== "doces_cento") {
+      // Só valida bolos
+      const valor = parseFloat(input.value);
+      if (valor < 1.5) {
+        alert("O pedido mínimo para bolos é 1,5kg.");
+        input.value = 1.5; // força a quantidade mínima
+      }
+    }
+  }
+}, true);
+
 
 // Depois que renderizar o cardápio
 function inicializarCategorias() {
