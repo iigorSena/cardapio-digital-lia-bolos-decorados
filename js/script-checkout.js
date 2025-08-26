@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${[...RECHEIOS_GRATIS.map(recheio => `
                   <tr>
                     <td><label><input type="checkbox" class="check-recheio" data-index="${index}" data-nome="${recheio}" data-valor="0" ${item.recheiosExtras?.some(r => r.nome === recheio) ? 'checked' : ''}> ${recheio}</label></td>
-                    <td>R$ 0,00</td>
+                    <td>Grátis</td>
                   </tr>
                 `), ...RECHEIOS_PAGOS.map(recheio => `
                   <tr>
