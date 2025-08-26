@@ -92,6 +92,13 @@ h2{
   margin-bottom: 0px;
   font-size: 14pt;
 }
+#pedido-min{
+  color: #F65DBA;
+  font-weight: bold;
+  font-size: 10pt;
+  margin-block: -5px;
+  margin-left: 5px;
+}
 .area-aviso {
   text-align: center;
   width: 100%;

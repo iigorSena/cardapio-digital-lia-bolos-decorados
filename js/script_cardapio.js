@@ -19,8 +19,15 @@ function renderizarCardapio() {
 
       const itemId = item.descricao;
       const precoUnitario = item.valor;
+
       const quantidadeSalva = itensSelecionados.get(itemId)?.quant;
-      const quantidadeInicial = quantidadeSalva || 1;
+      let quantidadeInicial;
+
+      if (quantidadeSalva) {
+        quantidadeInicial = quantidadeSalva;
+      } else {
+        quantidadeInicial = categoria === "doces" ? 1 : 1.5;
+      }
       const valorTotalInicial = precoUnitario * quantidadeInicial;
 
       let conteudo = `
@@ -52,7 +59,7 @@ function renderizarCardapio() {
           <hr>
           <div id="area-qtd">
             <label>Qtd:
-              <input type="number" class="quantidade-input" data-id="${itemId}" value="${quantidadeInicial}" min="1" step="0.1">
+              <input type="number" class="quantidade-input" data-id="${itemId}" value="${quantidadeInicial}" min="1.5" step="0.1">
               <label>Kg</label>
           </div>
           <div id="area-total-item">
